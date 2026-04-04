@@ -1,0 +1,6 @@
+spring.application.name=EmpManagement
+spring.datasource.url=jdbc:postgresql://localhost:5432/mappingDb
+spring.datasource.username=postgres
+spring.datasource.password=tiger
+spring.jpa.hibernate.ddl-auto=create
+spring.jpa.show-sql=true

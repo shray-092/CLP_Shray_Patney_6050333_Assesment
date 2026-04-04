@@ -1,0 +1,9 @@
+package com.example.demo.service;
+
+public interface Service {
+	 List<EmpDto> getAllEmps();
+	    EmpDto getEmpById(Integer id);
+	    void updateEmp(EmpDto dto);
+	    void deleteEmp(Integer id);
+
+}

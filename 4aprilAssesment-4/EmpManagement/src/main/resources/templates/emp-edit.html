@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Employee</title>
+</head>
+<body>
+
+<h2>Edit Employee</h2>
+
+<form th:action="@{/edit/{id}(id=${empDto.empId})}" th:object="${empDto}" method="post">
+
+    <input type="hidden" th:field="*{empId}" />
+
+    <table>
+        <tr>
+            <td>Emp Name:</td>
+            <td><input type="text" th:field="*{empName}" /></td>
+            <td><span th:if="${#fields.hasErrors('empName')}"
+                      th:errors="*{empName}"></span></td>
+        </tr>
+        <tr>
+            <td>Salary:</td>
+            <td><input type="number" th:field="*{empSal}" /></td>
+            <td><span th:if="${#fields.hasErrors('empSal')}"
+                      th:errors="*{empSal}"></span></td>
+        </tr>
+        <tr>
+            <td>Date of Joining:</td>
+            <td><input type="date" th:field="*{empDoj}" /></td>
+            <td><span th:if="${#fields.hasErrors('empDoj')}"
+                      th:errors="*{empDoj}"></span></td>
+        </tr>
+        <tr>
+            <td>Dept Name:</td>
+            <td><input type="text" th:field="*{deptName}" /></td>
+            <td><span th:if="${#fields.hasErrors('deptName')}"
+                      th:errors="*{deptName}"></span></td>
+        </tr>
+    </table>
+
+    <br/>
+    <button type="submit">Save</button>
+    <a href="/viewall">Cancel</a>
+
+</form>
+
+</body>
+</html>

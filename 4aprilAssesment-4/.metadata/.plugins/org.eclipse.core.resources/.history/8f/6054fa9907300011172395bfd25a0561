@@ -1,0 +1,59 @@
+package com.example.demo.Controller;
+
+
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.demo.dto.EmpDto;
+import com.example.demo.service.Service;
+
+@Controller
+public class EmpController {
+
+    @Autowired
+    private Service service;
+
+  
+    @GetMapping("/viewall")
+    public String viewAll(Model model,
+                          @RequestParam(value = "message", required = false) String message) {
+        model.addAttribute("emps", service.getAllEmps());
+        model.addAttribute("message", message);
+        return "emp-list";
+    }
+
+   
+    @GetMapping("/edit/{eid}")
+    public String showEditForm(@PathVariable Integer eid, Model model) {
+        model.addAttribute("empDto", service.getEmpById(eid));
+        return "emp-edit";
+    }
+
+
+    @PostMapping("/edit/{eid}")
+    public String saveEmp(@PathVariable Integer eid,
+                          @Valid @ModelAttribute("empDto") EmpDto dto,
+                          BindingResult result,
+                          RedirectAttributes ra) {
+        if (result.hasErrors()) {
+            return "emp-edit";
+        }
+        dto.setEmpId(eid);
+        service.updateEmp(dto);
+        ra.addAttribute("message", "Employee Edited");
+        return "redirect:/viewall";
+    }
+
+ 
+    @GetMapping("/delete/{eid}")
+    public String deleteEmp(@PathVariable Integer eid, RedirectAttributes ra) {
+        service.deleteEmp(eid);
+        ra.addAttribute("message", "Employee Deleted");
+        return "redirect:/viewall";
+    }
+}
