@@ -1,0 +1,27 @@
+package com.example.demo.controller;
+
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.Product.Product;
+import com.example.demo.service.Productservice;
+
+@RestController
+@RequestMapping("/products")
+public class ProductController {
+
+    @Autowired
+    private Productservice productService;
+
+    @PostMapping
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
+        return ResponseEntity.ok(productService.createProduct(product));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.getProductById(id));
+    }
+}

@@ -1,0 +1,21 @@
+package com.example.demo.service;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class Productservice {
+
+    @Autowired
+    private Repository productRepository;
+
+    public Product getProductById(Long id) {
+        return productRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+    }
+
+    public Product createProduct(Product product) {
+        return productRepository.save(product);
+    }
+}
